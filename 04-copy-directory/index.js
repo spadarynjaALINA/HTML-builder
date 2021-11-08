@@ -20,6 +20,14 @@ fs.access(filesCopy, (err) => {
     });
     copy();
   } else {
+    fs.readdir(filesCopy, function (err, items) {
+      if (err) throw err;
+      items.forEach(function (item) {
+        fs.unlink(path.join(__dirname, 'filesCopy', item), (err) => {
+          if (err) throw err;
+        });
+      });
+    });
     copy();
   }
 });
